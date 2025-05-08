@@ -55,5 +55,5 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 ---
 
 ## Author
-Developed by Kenet Ortiz.
+Developed by Kenet Ortiz. <br/>
 Feel free to fork, modify, and contribute!
