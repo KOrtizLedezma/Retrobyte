@@ -39,13 +39,13 @@ void init_snake() {
 void draw_border() {
   attron(COLOR_PAIR(3));
   for (int x = 0; x <= WIDTH + 1; x++) {
-    mvprintw(offset_y, x + offset_x, "█");                    // Top
-    mvprintw(offset_y + HEIGHT + 1, x + offset_x, "█");       // Bottom
+    mvprintw(offset_y, x + offset_x, "█");
+    mvprintw(offset_y + HEIGHT + 1, x + offset_x, "█");
   }
 
   for (int y = 1; y <= HEIGHT; y++) {
-    mvprintw(offset_y + y, offset_x, "█");                    // Left
-    mvprintw(offset_y + y, offset_x + WIDTH + 1, "█");        // Right
+    mvprintw(offset_y + y, offset_x, "█");
+    mvprintw(offset_y + y, offset_x + WIDTH + 1, "█");
   }
 }
 
@@ -108,7 +108,6 @@ void game_over() {
     }
   }
 }
-
 
 void check_body_collision() {
   for (int i = 1; i < snake_length; i++) {
@@ -190,13 +189,11 @@ int main() {
   initscr();
 
   start_color();
-  use_default_colors(); // Allows transparency on terminals that support it
+  use_default_colors();
 
-  // Define color pairs
-  init_pair(1, COLOR_GREEN, -1);  // Snake color
-  init_pair(2, COLOR_RED, -1);    // Food color
-  init_pair(3, COLOR_BLUE, -1);   // Border color
-
+  init_pair(1, COLOR_GREEN, -1);
+  init_pair(2, COLOR_RED, -1);
+  init_pair(3, COLOR_BLUE, -1);
 
   int max_x, max_y;
   getmaxyx(stdscr, max_y, max_x);
