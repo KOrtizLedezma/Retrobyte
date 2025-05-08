@@ -16,7 +16,7 @@ typedef struct {
 enum direction {UP, DOWN, LEFT, RIGHT};
 
 Point dir = {1, 0};
-Point snake[100];
+Point snake[800];
 Point food;
 
 int snake_length = 5;
@@ -37,6 +37,7 @@ void init_snake() {
 }
 
 void draw_border() {
+  attron(COLOR_PAIR(3));
   for (int x = 0; x <= WIDTH + 1; x++) {
     mvprintw(offset_y, x + offset_x, "█");                    // Top
     mvprintw(offset_y + HEIGHT + 1, x + offset_x, "█");       // Bottom
@@ -51,12 +52,16 @@ void draw_border() {
 void draw() {
   clear();
   draw_border();
+  attron(COLOR_PAIR(1));
   for (int i = 0; i < snake_length; i++) {
     mvprintw(snake[i].y + offset_y, snake[i].x + offset_x, "■");
   }
+  attron(COLOR_PAIR(1));
 
   if (food_available) {
+    attron(COLOR_PAIR(2));
     mvprintw(food.y + offset_y, food.x + offset_x, "■");
+    attroff(COLOR_PAIR(2));
   }
 
   refresh();
@@ -183,6 +188,15 @@ void spawn_food(){
 int main() {
   setlocale(LC_ALL, "");
   initscr();
+
+  start_color();
+  use_default_colors(); // Allows transparency on terminals that support it
+
+  // Define color pairs
+  init_pair(1, COLOR_GREEN, -1);  // Snake color
+  init_pair(2, COLOR_RED, -1);    // Food color
+  init_pair(3, COLOR_BLUE, -1);   // Border color
+
 
   int max_x, max_y;
   getmaxyx(stdscr, max_y, max_x);

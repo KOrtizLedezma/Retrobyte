@@ -55,12 +55,15 @@ void draw_next_block() {
   int center_y = 11;
   int center_x = 9;
 
+  wattron(next_win, COLOR_PAIR(next_block + 1));
   for (int i = 0; i < 4; i++) {
     int x = tetromino_shapes[next_block][i].x;
     int y = tetromino_shapes[next_block][i].y;
     mvwprintw(next_win, center_y + y, center_x + x * 2, "[]");
   }
+  wattroff(next_win, COLOR_PAIR(next_block + 1));
 }
+
 
 void draw_side_panels() {
   box(score_win, 0, 0);
@@ -78,7 +81,9 @@ void draw_grid() {
   for (int y = 0; y < HEIGHT; y++) {
     for (int x = 0; x < WIDTH; x++) {
       if (grid[y][x]) {
+        wattron(board_win, COLOR_PAIR(grid[y][x]));
         mvwprintw(board_win, y + 1, x * 2 + 1, "[]");
+        wattroff(board_win, COLOR_PAIR(grid[y][x]));
       } else {
         mvwprintw(board_win, y + 1, x * 2 + 1, " ");
       }
@@ -92,11 +97,13 @@ void draw_border() {
 }
 
 void draw_current_block() {
+  wattron(board_win, COLOR_PAIR(current_block + 1));
   for (int i = 0; i < 4; i++) {
     int bx = block_origin.x + active_block[i].x;
     int by = block_origin.y + active_block[i].y;
     mvwprintw(board_win, by + 1, bx * 2 + 1, "[]");
   }
+  wattroff(board_win, COLOR_PAIR(current_block + 1));
 }
 
 void draw() {
@@ -123,7 +130,7 @@ void lock_block_into_grid() {
     int x = block_origin.x + active_block[i].x;
     int y = block_origin.y + active_block[i].y;
     if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
-      grid[y][x] = 1;
+      grid[y][x] = current_block + 1;
     }
   }
 }
@@ -304,6 +311,19 @@ void handle_input(int current_time) {
 int main() {
   setlocale(LC_ALL, "");
   initscr();
+
+  start_color();
+  use_default_colors();
+
+  init_pair(1, COLOR_CYAN,    -1);
+  init_pair(2, COLOR_YELLOW,  -1);
+  init_pair(3, COLOR_MAGENTA, -1);
+  init_pair(4, COLOR_BLUE,    -1);
+  init_pair(5, COLOR_WHITE,   -1);
+  init_pair(6, COLOR_GREEN,   -1);
+  init_pair(7, COLOR_RED,     -1);
+  init_pair(8, COLOR_WHITE,   -1);
+
   refresh();
   int max_x, max_y;
   getmaxyx(stdscr, max_y, max_x);
