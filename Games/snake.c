@@ -78,13 +78,32 @@ void game_over() {
   clear();
   mvprintw(offset_y + HEIGHT / 2, offset_x + WIDTH / 2 - 5, "Game Over!");
   mvprintw(offset_y + HEIGHT / 2 + 1, offset_x + WIDTH / 2 - 8, "Final Score: %d", score);
-  mvprintw(offset_y + HEIGHT / 2 + 2, offset_x + WIDTH / 2 - 10, "Press any key to exit...");
+  mvprintw(offset_y + HEIGHT / 2 + 3, offset_x + WIDTH / 2 - 10, "Press R to Restart");
+  mvprintw(offset_y + HEIGHT / 2 + 4, offset_x + WIDTH / 2 - 7, "or Q to Quit");
   refresh();
+
   nodelay(stdscr, FALSE);
-  getch();
-  endwin();
-  exit(0);
+
+  int ch;
+  while (1) {
+    ch = getch();
+    if (ch == 'q' || ch == 'Q') {
+      endwin();
+      exit(0);
+    } else if (ch == 'r' || ch == 'R') {
+      snake_length = 5;
+      score = 0;
+      delay = DELAY;
+      dir.x = 1; dir.y = 0;
+      curr_dir = RIGHT;
+      food_available = FALSE;
+      init_snake();
+      nodelay(stdscr, TRUE);
+      return;
+    }
+  }
 }
+
 
 void check_body_collision() {
   for (int i = 1; i < snake_length; i++) {
@@ -93,8 +112,6 @@ void check_body_collision() {
     }
   }
 }
-
-
 
 void update() {
 
