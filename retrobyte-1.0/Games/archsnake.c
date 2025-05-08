@@ -143,26 +143,26 @@ void handle_input() {
       if (curr_dir != DOWN) {
         dir.x = 0; dir.y = -1;
         curr_dir = UP;
-        break;
       }
+      break;
     case KEY_DOWN:
       if (curr_dir != UP) {
         dir.x = 0; dir.y = 1;
         curr_dir = DOWN;
-        break;
       }
+      break;
     case KEY_LEFT:
       if (curr_dir != RIGHT) {
         dir.x = -1; dir.y = 0;
         curr_dir = LEFT;
-        break;
       }
+      break;
     case KEY_RIGHT:
       if (curr_dir != LEFT) {
         dir.x = 1; dir.y = 0;
         curr_dir = RIGHT;
-        break;
       }
+      break;
   }
 }
 

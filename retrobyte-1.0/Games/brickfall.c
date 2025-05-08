@@ -206,8 +206,6 @@ void game_over() {
       clear();
       refresh();
 
-      int max_x, max_y;
-      getmaxyx(stdscr, max_y, max_x);
       int board_width = WIDTH * 2 + 2;
       int board_height = HEIGHT + 2;
 
@@ -236,8 +234,6 @@ void game_over() {
     }
   }
 }
-
-
 
 void update(int current_time) {
   if (current_time - last_drop_time >= delay && !just_moved) {

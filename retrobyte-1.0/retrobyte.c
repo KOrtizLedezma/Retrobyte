@@ -25,7 +25,7 @@ const char* retrobyte_title[] = {
 
 const int title_lines = 6;
 
-const char* menu_items[] = { "PingPong", "Snake", "Tetris", "Exit" };
+const char* menu_items[] = { "ArcadePong", "ArchSnake", "Brickfall", "Exit" };
 const int menu_count = 4;
 int selected_index = 0;
 

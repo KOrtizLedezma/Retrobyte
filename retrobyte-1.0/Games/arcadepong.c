@@ -127,7 +127,6 @@ void ball_movement() {
       ball_dir.x *= -1;
     }
 
-    bool collided = FALSE;
     for (int i = 0; i < paddle_length; i++) {
       if (ball.y == paddle[i].y - 1 && ball.x >= paddle[i].x - 1 && ball.x <= paddle[i].x + 1) {
         ball_dir.y = -1;
@@ -139,7 +138,6 @@ void ball_movement() {
           ball_dir.x = 1;
         }
 
-        collided = TRUE;
         break;
       }
     }
@@ -155,7 +153,6 @@ void ball_movement() {
           ball_dir.x = 1;
         }
 
-        collided = TRUE;
         break;
       }
     }
