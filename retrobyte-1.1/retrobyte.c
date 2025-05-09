@@ -74,7 +74,7 @@ void launch_game(const char* game_name) {
   pid_t pid = fork();
 
   if (pid == 0) {
-    execl(game_name, game_name, NULL);
+    execlp(game_name, game_name, NULL);
     perror("Failed to launch game");
     exit(EXIT_FAILURE);
   }
@@ -114,14 +114,14 @@ void handle_input() {
         exit(0);
       } else {
         char cmd[64];
-        snprintf(cmd, sizeof(cmd), "./Games/%s", menu_items[selected_index]);
-        for (int i = 8; cmd[i]; i++) {
+        snprintf(cmd, sizeof(cmd), "%s", menu_items[selected_index]);
+        for (int i = 0; cmd[i]; i++) {
           if (cmd[i] >= 'A' && cmd[i] <= 'Z') {
             cmd[i] = cmd[i] + 32;
           }
         }
         endwin();
-        printf("DEBUG: trying to launch: %s\n", cmd);
+        printf("DEBUG: launching: %s\n", cmd);
         fflush(stdout);
         sleep(2);
         launch_game(cmd);
